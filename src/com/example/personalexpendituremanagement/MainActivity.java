@@ -1,38 +1,149 @@
 package com.example.personalexpendituremanagement;
 
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
-	
+import com.androidplot.pie.PieChart;
+import com.androidplot.pie.PieRenderer;
+import com.androidplot.pie.Segment;
+import com.androidplot.pie.SegmentFormatter;
+
+
+public class MainActivity extends Activity  {
+	private DatePicker dpIncomeDate;
+	private int year;
+	private int month;
+	private int day;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		Button btnClick =(Button)findViewById(R.id.btnClick);
-		btnClick.setOnClickListener(new OnClickListener() {
+		// remove title
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.account);
+		Integer income =40;
+		Integer expense =60;
+		createPieChart(income, expense);
+		Button AddIncome = (Button)findViewById(R.id.btnAddIncome);
+		Button AddExpense = (Button)findViewById(R.id.btnAddExpense);
+		Button ReportDay = (Button)findViewById(R.id.btnToday);
+		Button ReportWeek = (Button)findViewById(R.id.btnWeek);
+		Button ReportMonth = (Button)findViewById(R.id.btnMonth);
+		Button ReportQuarter = (Button)findViewById(R.id.btnQuarter);
+		Button ReportYear = (Button)findViewById(R.id.btnYear);
+		
+		final TextView txtMode = (TextView)findViewById(R.id.txtMode);
+		txtMode.setText("Day");
+		final TextView txtDate = (TextView)findViewById(R.id.txtDate);
+		AddIncome.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent iLoadPieChart = new Intent(getApplicationContext(),LoadPieChart.class);
-				startActivity(iLoadPieChart);
+				Intent iAddIncome = new Intent(getApplicationContext(),AddIncome.class);
+				startActivity(iAddIncome);
+			}
+		});
+		AddExpense.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent iAddExpense = new Intent(getApplicationContext(),AddExpense.class);
+				startActivity(iAddExpense);
+			}
+		});
+		ReportDay.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				txtMode.setText("Day");
+				
+			}
+		});
+		ReportWeek.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				txtMode.setText("Week");
+			}
+		});
+		ReportMonth.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				txtMode.setText("Month");
+			}
+		});
+		ReportQuarter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				txtMode.setText("Quarter");
+			}
+		});
+		ReportYear.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				txtMode.setText("Year");
 			}
 		});
 	}
 	
+	public void createPieChart(Integer income, Integer expense){
+		PieChart pie = (PieChart)findViewById(R.id.mySimplePieChart);
+		Segment segIncome = new Segment("",income);
+		Segment segExpense = new Segment("",expense);
+		
+		SegmentFormatter sfIncome = new SegmentFormatter();
+		sfIncome.configure(getApplicationContext(), R.xml.pie_segment_formatter2);
+		
+		SegmentFormatter sfExpense = new SegmentFormatter();
+		sfExpense.configure(getApplicationContext(), R.xml.pie_segment_formatter1);
+		
+		pie.addSeries(segIncome, sfIncome);
+		pie.addSeries(segExpense, sfExpense);
+		
+		pie.getBorderPaint().setColor(Color.TRANSPARENT);
+        pie.getBackgroundPaint().setColor(Color.TRANSPARENT);
+        pie.getRenderer(PieRenderer.class).setDonutSize(0,PieRenderer.DonutMode.PERCENT);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		//getMenuInflater().inflate(R.menu.main, menu);
+		//return true;
+		menu.add("Account")
+        .setIcon(R.drawable.ic_action_accounts)
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+		menu.add("Report")
+        .setIcon(R.drawable.ic_action_view_as_list)
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+		menu.add("Settings")
+        .setIcon(R.drawable.ic_action_settings)
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -46,4 +157,5 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

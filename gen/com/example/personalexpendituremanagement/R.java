@@ -29,17 +29,57 @@ public final class R {
         public static final int title_font_size=0x7f050003;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int bg_striped=0x7f020000;
+        public static final int bg_striped_img=0x7f020001;
+        public static final int bg_striped_split=0x7f020002;
+        public static final int bg_striped_split_img=0x7f020003;
+        public static final int ic_action_accounts=0x7f020004;
+        public static final int ic_action_next_item=0x7f020005;
+        public static final int ic_action_settings=0x7f020006;
+        public static final int ic_action_view_as_list=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f090002;
-        public static final int btnClick=0x7f090000;
-        public static final int mySimplePieChart=0x7f090001;
+        public static final int LinearLayout01=0x7f09001a;
+        public static final int action_settings=0x7f09001b;
+        public static final int btnAddExpense=0x7f090001;
+        public static final int btnAddIncome=0x7f090000;
+        public static final int btnClick=0x7f09000a;
+        public static final int btnMonth=0x7f090004;
+        public static final int btnPickExpenseDate=0x7f090010;
+        public static final int btnPickIncomeDate=0x7f090017;
+        public static final int btnQuarter=0x7f090005;
+        public static final int btnSaveExpense=0x7f090012;
+        public static final int btnSaveIncome=0x7f090019;
+        public static final int btnToday=0x7f090002;
+        public static final int btnWeek=0x7f090003;
+        public static final int btnYear=0x7f090006;
+        public static final int mySimplePieChart=0x7f090009;
+        public static final int pager=0x7f09000b;
+        public static final int spExpenseCategory=0x7f09000e;
+        public static final int spIncomeCategory=0x7f090015;
+        public static final int txtDate=0x7f090008;
+        public static final int txtExpenseAmount=0x7f09000c;
+        public static final int txtExpenseDate=0x7f09000f;
+        public static final int txtExpenseName=0x7f09000d;
+        public static final int txtIncomeAmount=0x7f090013;
+        public static final int txtIncomeDate=0x7f090016;
+        public static final int txtIncomeName=0x7f090014;
+        public static final int txtMode=0x7f090007;
+        public static final int txtNoteExpense=0x7f090011;
+        public static final int txtNoteIncome=0x7f090018;
     }
     public static final class layout {
         public static final int account=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int pie_chart=0x7f030002;
+        public static final int add_expense=0x7f030002;
+        public static final int add_income=0x7f030003;
+        public static final int fragment1=0x7f030004;
+        public static final int fragment2=0x7f030005;
+        public static final int fragment3=0x7f030006;
+        public static final int pager=0x7f030007;
+        public static final int pie_chart=0x7f030008;
+        public static final int tab_host=0x7f030009;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -49,12 +89,25 @@ public final class R {
         public static final int action_settings=0x7f060002;
         public static final int add_expense=0x7f060009;
         public static final int add_income=0x7f060008;
+        public static final int amount=0x7f060010;
         public static final int app_name=0x7f060000;
         public static final int balance=0x7f060007;
+        public static final int category=0x7f060012;
+        public static final int date=0x7f060013;
         public static final int expense=0x7f060006;
+        public static final int hello_blank_fragment=0x7f06000a;
         public static final int hello_world=0x7f060001;
         public static final int income=0x7f060005;
+        public static final int month=0x7f06000d;
+        public static final int name=0x7f060011;
+        public static final int note=0x7f060014;
+        public static final int pick_income_date_desciption=0x7f060015;
         public static final int pie_chart=0x7f060003;
+        public static final int quarter=0x7f06000e;
+        public static final int save=0x7f060016;
+        public static final int today=0x7f06000b;
+        public static final int week=0x7f06000c;
+        public static final int year=0x7f06000f;
     }
     public static final class style {
         /** 
@@ -83,6 +136,10 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
+        public static final int MyActionBar=0x7f070004;
+        /**  the theme applied to the application or activity 
+         */
+        public static final int MyTheme=0x7f070003;
         /**  Layout styles 
          */
         public static final int TitleStyle=0x7f070002;

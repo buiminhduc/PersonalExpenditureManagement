@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:text="@string/add_income" 
+        style="@style/TitleStyle"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+	   		android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal" >
+			<TextView
+			    
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount" />
+			<EditText
+			    android:id="@+id/txtIncomeAmount"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="numberDecimal" />
+            
+        </LinearLayout>
+	    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+	   		android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal" >
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+			<EditText
+			    android:id="@+id/txtIncomeName"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+	   		android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal" >
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category" />
+			<Spinner
+			    android:id="@+id/spIncomeCategory"
+    			android:layout_width="match_parent"
+    			android:layout_height="wrap_content" 
+			    />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+	   		android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal" >
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date" />
+			<TextView
+			    android:id="@+id/txtIncomeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+			<ImageButton
+			    android:id="@+id/btnPickIncomeDate"
+			    android:background="@drawable/ic_action_next_item"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:contentDescription="@string/pick_income_date_desciption"
+			    />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+	   		android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal" >
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/note" />
+			<EditText
+			    android:id="@+id/txtNoteIncome"
+			    android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:inputType="text" 
+			    />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnSaveIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save" 
+            />
+</LinearLayout>
