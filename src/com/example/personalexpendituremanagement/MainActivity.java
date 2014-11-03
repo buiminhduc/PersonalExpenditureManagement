@@ -23,7 +23,7 @@ import com.androidplot.pie.SegmentFormatter;
 
 
 public class MainActivity extends Activity  {
-	
+	SpendingDBAdapter DBAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +42,12 @@ public class MainActivity extends Activity  {
 		Button ReportQuarter = (Button)findViewById(R.id.btnQuarter);
 		Button ReportYear = (Button)findViewById(R.id.btnYear);
 		
+		//initialize DB adapter
+		DBAdapter = new SpendingDBAdapter(this);
+		//Test DB
+		insert();
+        DisplayAll_IncomeCategories();
+        
 		final TextView txtMode = (TextView)findViewById(R.id.txtMode);
 		txtMode.setText("Day");
 		final TextView txtDate = (TextView)findViewById(R.id.txtDate);
@@ -156,5 +162,33 @@ public class MainActivity extends Activity  {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	  
+	// Test Insert Income Categories
+    private void insert(){
+        DBAdapter.open();
+        //long id;
+        DBAdapter.insertIncome_Categories("Genaral Salary");
+        DBAdapter.insertIncome_Categories("Bonus Salary");
+        DBAdapter.close();
+    }
+
+    private  void DisplayAll_IncomeCategories(){
+    	DBAdapter.open();
+        try{
+            Cursor c=DBAdapter.getAllIncomeCategories();
+            if(c.moveToFirst()){
+                do {
+                    DisplayIncome_Categories(c);}
+
+                while (c.moveToNext());}
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        DBAdapter.close();
+    }
+
+    private void DisplayIncome_Categories(Cursor c){
+        Toast.makeText(this, "IncomeCID: " + c.getString(0) + "\n" + "CategoryName: "
+                        + c.getString(1),
+                Toast.LENGTH_LONG).show();
+    }
 }
