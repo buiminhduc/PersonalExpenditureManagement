@@ -23,7 +23,7 @@ import com.androidplot.pie.SegmentFormatter;
 
 
 public class MainActivity extends Activity  {
-	private SpendingDBAdapter SPDatabase;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
