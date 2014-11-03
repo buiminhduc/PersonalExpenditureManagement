@@ -104,10 +104,7 @@ public class MainActivity extends Activity  {
 				txtMode.setText("Year");
 			}
 		});
-		//insert sample data
-		insert();
-		//test display all categories
-		DisplayAll_IncomeCategories();
+		
 	}
 	//Create pie chart 
 	public void createPieChart(Integer income, Integer expense){
@@ -159,32 +156,5 @@ public class MainActivity extends Activity  {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	  // Test Insert Income Categories
-    private void insert(){
-        SPDatabase.open();
-        //long id;
-        SPDatabase.insertIncome_Categories("Genaral Salary");
-        SPDatabase.insertIncome_Categories("Bonus Salary");
-        SPDatabase.close();
-    }
-
-    private  void DisplayAll_IncomeCategories(){
-        SPDatabase.open();
-        try{
-            Cursor c=SPDatabase.getAllIncomeCategories();
-            if(c.moveToFirst()){
-                do {
-                    DisplayIncome_Categories(c);}
-
-                while (c.moveToNext());}
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        SPDatabase.close();
-    }
-    private void DisplayIncome_Categories(Cursor c){
-        Toast.makeText(this, "IncomeCID: " + c.getString(0) + "\n" + "CategoryName: "
-                        + c.getString(1),
-                Toast.LENGTH_LONG).show();
-    }
+	  
 }
