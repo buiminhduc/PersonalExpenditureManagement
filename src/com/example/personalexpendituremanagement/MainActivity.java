@@ -1,10 +1,11 @@
 package com.example.personalexpendituremanagement;
 
 
-import java.util.Calendar;
+
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidplot.pie.PieChart;
 import com.androidplot.pie.PieRenderer;
@@ -22,10 +23,7 @@ import com.androidplot.pie.SegmentFormatter;
 
 
 public class MainActivity extends Activity  {
-	private DatePicker dpIncomeDate;
-	private int year;
-	private int month;
-	private int day;
+	private SpendingDBAdapter SPDatabase;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,8 +104,12 @@ public class MainActivity extends Activity  {
 				txtMode.setText("Year");
 			}
 		});
+		//insert sample data
+		insert();
+		//test display all categories
+		DisplayAll_IncomeCategories();
 	}
-	
+	//Create pie chart 
 	public void createPieChart(Integer income, Integer expense){
 		PieChart pie = (PieChart)findViewById(R.id.mySimplePieChart);
 		Segment segIncome = new Segment("",income);
@@ -157,5 +159,32 @@ public class MainActivity extends Activity  {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+	  // Test Insert Income Categories
+    private void insert(){
+        SPDatabase.open();
+        //long id;
+        SPDatabase.insertIncome_Categories("Genaral Salary");
+        SPDatabase.insertIncome_Categories("Bonus Salary");
+        SPDatabase.close();
+    }
+
+    private  void DisplayAll_IncomeCategories(){
+        SPDatabase.open();
+        try{
+            Cursor c=SPDatabase.getAllIncomeCategories();
+            if(c.moveToFirst()){
+                do {
+                    DisplayIncome_Categories(c);}
+
+                while (c.moveToNext());}
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        SPDatabase.close();
+    }
+    private void DisplayIncome_Categories(Cursor c){
+        Toast.makeText(this, "IncomeCID: " + c.getString(0) + "\n" + "CategoryName: "
+                        + c.getString(1),
+                Toast.LENGTH_LONG).show();
+    }
 }

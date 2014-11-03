@@ -33,10 +33,7 @@
                    android:value="splitActionBarWhenNarrow" /></activity>
         <activity android:name=".AddExpense"><meta-data android:name="android.support.UI_OPTIONS"
                    android:value="splitActionBarWhenNarrow" /></activity>
-        <activity android:name=".Tab2Activity"><meta-data android:name="android.support.UI_OPTIONS"
-                   android:value="splitActionBarWhenNarrow" /></activity>
-        <activity android:name=".Tab3Activity"><meta-data android:name="android.support.UI_OPTIONS"
-                   android:value="splitActionBarWhenNarrow" /></activity>
+        
     </application>
 
 </manifest>
