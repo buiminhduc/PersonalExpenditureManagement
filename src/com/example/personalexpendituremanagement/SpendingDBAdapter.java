@@ -1,5 +1,6 @@
 package com.example.personalexpendituremanagement;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,8 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+
 public class SpendingDBAdapter {
-	//Database Name
+
+    //Database Name
     private static final String DATABASE_NAME = "SpendingDB";
 
     //Table Name
@@ -68,15 +75,9 @@ public class SpendingDBAdapter {
         DBHelper.close();
     }
 
-    // Insert table Income Categories
-    public long insertIncome_Categories( String IncomeCName)
-    {
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_IncomeCName, IncomeCName);
-        return db.insert(KEY_TBNAME_tbl_IncomeCategories, null, initialValues);
-    }
 
-    // get All Categories
+
+    // get All Income Categories Records
     public Cursor getAllIncomeCategories()
     {
         return db.query(KEY_TBNAME_tbl_IncomeCategories, new String[] {
@@ -89,6 +90,163 @@ public class SpendingDBAdapter {
                 null,
                 null);
     }
+
+    // get All Expense Categories Records
+    public Cursor getAllExpenseCategories()
+    {
+        return db.query(KEY_TBNAME_tbl_ExpenseCategories, new String[] {
+                        KEY_ExpenseCID,
+                        KEY_ExpenseCName,
+                },
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    // get All Income records
+    public Cursor getAllIncome()
+    {
+        return db.query(KEY_TBNAME_tbl_Income, new String[] {
+                        KEY_IncomeID,
+                        KEY_tbIncome_IncomeCID,
+                        KEY_IncomeDate,
+                        KEY_IncomeValue,
+                        KEY_IncomeDescriptions,
+                },
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    // get All Expense records
+    public Cursor getAllExpense()
+    {
+        return db.query(KEY_TBNAME_tbl_Expense, new String[] {
+                        KEY_ExpenseID,
+                        KEY_tbExpense_ExpenseCID,
+                        KEY_ExpenseDate,
+                        KEY_ExpenseValue,
+                        KEY_ExpenseDescriptions,
+                },
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    // Insert table Income Categories
+    public long insertIncome_Categories( String IncomeCName)
+    {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_IncomeCName, IncomeCName);
+        return db.insert(KEY_TBNAME_tbl_IncomeCategories, null, initialValues);
+    }
+
+    // Insert table Expense Categories
+    public long insertExpense_Categories( String IncomeCName)
+    {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_ExpenseCName, IncomeCName);
+        return db.insert(KEY_TBNAME_tbl_ExpenseCategories, null, initialValues);
+    }
+
+    // Insert table Expense
+    public long insert_Income( long IncomeCID, String IncomeDate, long IncomeValue, String  ICDesct)
+    {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_tbIncome_IncomeCID, IncomeCID);
+        initialValues.put(KEY_IncomeDate, IncomeDate);
+        initialValues.put(KEY_IncomeValue, IncomeValue);
+        initialValues.put(KEY_IncomeDescriptions, ICDesct);
+        return db.insert(KEY_TBNAME_tbl_Income, null, initialValues);
+    }
+
+    // Insert table Expense
+    public long insert_Expense( long ExpenseCID, String ExpenseDate, long ExpenseValue, String  ECDesct)
+    {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_tbExpense_ExpenseCID, ExpenseCID);
+        initialValues.put(KEY_ExpenseDate, ExpenseDate);
+        initialValues.put(KEY_ExpenseValue, ExpenseValue);
+        initialValues.put(KEY_ExpenseDescriptions, ECDesct);
+        return db.insert(KEY_TBNAME_tbl_Expense, null, initialValues);
+    }
+
+    // Update an Expense record
+    public boolean Update_Expense( long  ExpenseID, long ExpenseCID, String ExpenseDate, long ExpenseValue, String  ECDesct)
+    {
+        ContentValues Values = new ContentValues();
+        Values.put(KEY_tbExpense_ExpenseCID, ExpenseCID);
+        Values.put(KEY_ExpenseDate, ExpenseDate);
+        Values.put(KEY_ExpenseValue, ExpenseValue);
+        Values.put(KEY_ExpenseDescriptions, ECDesct);
+        return db.update(KEY_TBNAME_tbl_Expense, Values, KEY_ExpenseID + "=" + ExpenseID,null )>0;
+    }
+
+    // Update an Income record
+    public boolean Update_Income( long  IncomeID, long IncomeCID, String IncomeDate, long IncomeValue, String  ICDesct)
+    {
+        ContentValues Values = new ContentValues();
+        Values.put(KEY_tbIncome_IncomeCID, IncomeCID);
+        Values.put(KEY_IncomeDate, IncomeDate);
+        Values.put(KEY_IncomeValue, IncomeValue);
+        Values.put(KEY_IncomeDescriptions, ICDesct);
+        return db.update(KEY_TBNAME_tbl_Income, Values, KEY_IncomeID + "=" + IncomeID,null )>0;
+    }
+
+    // Update an Income Category record
+    public boolean Update_IncomeCategory( long  IncomeCID, String IncomeCName)
+    {
+        ContentValues Values = new ContentValues();
+        Values.put(KEY_IncomeCName, IncomeCName);
+
+        return db.update(KEY_TBNAME_tbl_IncomeCategories, Values, KEY_IncomeCID + "=" + IncomeCID,null )>0;
+    }
+
+    // Update an Expense Category record
+    public boolean Update_ExpenseCategory( long  ExpenseCID, String ExpenseCName)
+    {
+        ContentValues Values = new ContentValues();
+        Values.put(KEY_ExpenseCName, ExpenseCName);
+
+        return db.update(KEY_TBNAME_tbl_ExpenseCategories, Values, KEY_ExpenseCID + "=" + ExpenseCID,null )>0;
+    }
+
+
+    // Delete an Expense Category record
+    public boolean Delete_ExpenseCategory( long  ExpenseCID)
+    {
+        return db.delete(KEY_TBNAME_tbl_ExpenseCategories, KEY_ExpenseCID + "=" + ExpenseCID,null )>0;
+    }
+
+    // Delete an Income Category record
+    public boolean Delete_IncomeCategory( long IncomeCID)
+    {
+        return db.delete(KEY_TBNAME_tbl_IncomeCategories, KEY_IncomeCID + "=" + IncomeCID,null )>0;
+    }
+
+    // Delete an Income record
+    public boolean Delete_Income( long IncomeID)
+    {
+        return db.delete(KEY_TBNAME_tbl_Income, KEY_IncomeID + "=" + IncomeID,null )>0;
+    }
+
+    // Delete an Expense record
+    public boolean Delete_Expense( long ExpenseID)
+    {
+        return db.delete(KEY_TBNAME_tbl_Expense, KEY_ExpenseID + "=" + ExpenseID,null )>0;
+    }
+
+
+
+
+
+
 
 
     // Database Helper Class
@@ -135,6 +293,13 @@ public class SpendingDBAdapter {
                 + ")";
 
 
+        // Get current Local Date
+        private String getDateTime() {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                    "yyyy-MM-dd", Locale.getDefault());
+            Date date = new Date();
+            return dateFormat.format(date);
+        }
 
         @Override
         public void onCreate(SQLiteDatabase db)
@@ -161,4 +326,5 @@ public class SpendingDBAdapter {
             onCreate(db);
         }
     }
+
 }

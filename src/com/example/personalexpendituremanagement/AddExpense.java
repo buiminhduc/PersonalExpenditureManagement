@@ -17,12 +17,16 @@ public class AddExpense extends FragmentActivity {
 	private Calendar calendar = Calendar.getInstance();
 	private TextView txtExpenseDate;
 	private ImageButton btnPickExpenseDate;
-	
+	SpendingDBAdapter DBAdapter;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		setContentView(R.layout.add_expense);
+		
+		//initialize DB adapter
+		DBAdapter = new SpendingDBAdapter(this);
+		
 		txtExpenseDate = (TextView)findViewById(R.id.txtExpenseDate);
 		btnPickExpenseDate =(ImageButton)findViewById(R.id.btnPickExpenseDate);
 		btnPickExpenseDate.setOnClickListener(new OnClickListener() {

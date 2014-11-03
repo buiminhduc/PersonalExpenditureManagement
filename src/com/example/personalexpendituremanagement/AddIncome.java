@@ -19,11 +19,16 @@ public class AddIncome extends FragmentActivity  {
 	private Calendar calendar = Calendar.getInstance();
 	private TextView txtIncomeDate;
 	private ImageButton btnPickIncomeDate;
+	SpendingDBAdapter DBAdapter;
 	 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_income);
+		
+		//initialize DB adapter
+		DBAdapter = new SpendingDBAdapter(this);
+		
 		txtIncomeDate = (TextView)findViewById(R.id.txtIncomeDate);
 		btnPickIncomeDate =(ImageButton)findViewById(R.id.btnPickIncomeDate);
 		btnPickIncomeDate.setOnClickListener(new OnClickListener() {
