@@ -168,6 +168,8 @@ public class MainActivity extends Activity  {
         //long id;
         DBAdapter.insertIncome_Categories("Genaral Salary");
         DBAdapter.insertIncome_Categories("Bonus Salary");
+        DBAdapter.insertExpense_Categories("Buy iPad");
+        DBAdapter.insertExpense_Categories("School fee");
         DBAdapter.close();
     }
 

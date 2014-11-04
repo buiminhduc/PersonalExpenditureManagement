@@ -27,12 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoadPieChart"><meta-data android:name="android.support.UI_OPTIONS"
-                   android:value="splitActionBarWhenNarrow" /></activity>
-        <activity android:name=".AddIncome"><meta-data android:name="android.support.UI_OPTIONS"
-                   android:value="splitActionBarWhenNarrow" /></activity>
-        <activity android:name=".AddExpense"><meta-data android:name="android.support.UI_OPTIONS"
-                   android:value="splitActionBarWhenNarrow" /></activity>
+        <activity android:name=".LoadPieChart">
+            <meta-data android:name="android.support.UI_OPTIONS"
+                   android:value="splitActionBarWhenNarrow" />
+        </activity>
+        <activity android:name=".AddIncome">
+            <meta-data android:name="android.support.UI_OPTIONS"
+                   android:value="splitActionBarWhenNarrow" />
+        </activity>
+        <activity android:name=".AddExpense">
+            <meta-data android:name="android.support.UI_OPTIONS"
+                   android:value="splitActionBarWhenNarrow" />
+        </activity>
         
     </application>
 

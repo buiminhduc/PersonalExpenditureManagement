@@ -24,4 +24,5 @@
 	<string name="note">Note: </string>
 	<string name="pick_income_date_desciption">Pick Income Date</string>
 	<string name="save">Save</string>
+	<string name="currency">đ</string>
 </resources>

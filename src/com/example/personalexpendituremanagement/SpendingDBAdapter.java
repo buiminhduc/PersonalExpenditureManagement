@@ -1,21 +1,27 @@
 package com.example.personalexpendituremanagement;
 
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
-
-public class SpendingDBAdapter {
-
+public class SpendingDBAdapter  {
+	//Database path
+	private static final String DATABASE_PATH ="/data/data/com.example.personalexpendituremanagement/databases/";
     //Database Name
     private static final String DATABASE_NAME = "SpendingDB";
 
@@ -31,6 +37,7 @@ public class SpendingDBAdapter {
     private static final String KEY_IncomeDate = "IncomeDate";
     private static final String KEY_IncomeValue = "IncomeValue";
     private static final String KEY_IncomeDescriptions = "IncomeDescriptions";
+    private static final String KEY_IncomeName = "IncomeName";
 
     //Columns Name - tbl_Expense
     private static final String KEY_ExpenseID = "ExpenseID";
@@ -38,6 +45,7 @@ public class SpendingDBAdapter {
     private static final String KEY_ExpenseDate = "ExpenseDate";
     private static final String KEY_ExpenseValue = "ExpenseValue";
     private static final String KEY_ExpenseDescriptions = "ExpenseDescriptions";
+    private static final String KEY_ExpenseName = "ExpenseName";
 
     //Columns Name - tbl_IncomeCategories
     private static final String KEY_IncomeCID = "IncomeCID";
@@ -114,6 +122,7 @@ public class SpendingDBAdapter {
                         KEY_IncomeDate,
                         KEY_IncomeValue,
                         KEY_IncomeDescriptions,
+                        KEY_IncomeName
                 },
                 null,
                 null,
@@ -131,6 +140,7 @@ public class SpendingDBAdapter {
                         KEY_ExpenseDate,
                         KEY_ExpenseValue,
                         KEY_ExpenseDescriptions,
+                        KEY_ExpenseName
                 },
                 null,
                 null,
@@ -156,46 +166,50 @@ public class SpendingDBAdapter {
     }
 
     // Insert table Expense
-    public long insert_Income( long IncomeCID, String IncomeDate, long IncomeValue, String  ICDesct)
+    public long insert_Income( long IncomeCID, String IncomeDate, long IncomeValue, String  ICDesct, String IncomeName)
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_tbIncome_IncomeCID, IncomeCID);
         initialValues.put(KEY_IncomeDate, IncomeDate);
         initialValues.put(KEY_IncomeValue, IncomeValue);
         initialValues.put(KEY_IncomeDescriptions, ICDesct);
+        initialValues.put(KEY_IncomeName, IncomeName);
         return db.insert(KEY_TBNAME_tbl_Income, null, initialValues);
     }
 
     // Insert table Expense
-    public long insert_Expense( long ExpenseCID, String ExpenseDate, long ExpenseValue, String  ECDesct)
+    public long insert_Expense( long ExpenseCID, String ExpenseDate, long ExpenseValue, String  ECDesct, String ExpenseName)
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_tbExpense_ExpenseCID, ExpenseCID);
         initialValues.put(KEY_ExpenseDate, ExpenseDate);
         initialValues.put(KEY_ExpenseValue, ExpenseValue);
         initialValues.put(KEY_ExpenseDescriptions, ECDesct);
+        initialValues.put(KEY_ExpenseName, ExpenseName);
         return db.insert(KEY_TBNAME_tbl_Expense, null, initialValues);
     }
 
     // Update an Expense record
-    public boolean Update_Expense( long  ExpenseID, long ExpenseCID, String ExpenseDate, long ExpenseValue, String  ECDesct)
+    public boolean Update_Expense( long  ExpenseID, long ExpenseCID, String ExpenseDate, long ExpenseValue, String  ECDesct, String ExpenseName)
     {
         ContentValues Values = new ContentValues();
         Values.put(KEY_tbExpense_ExpenseCID, ExpenseCID);
         Values.put(KEY_ExpenseDate, ExpenseDate);
         Values.put(KEY_ExpenseValue, ExpenseValue);
         Values.put(KEY_ExpenseDescriptions, ECDesct);
+        Values.put(KEY_ExpenseName, ExpenseName);
         return db.update(KEY_TBNAME_tbl_Expense, Values, KEY_ExpenseID + "=" + ExpenseID,null )>0;
     }
 
     // Update an Income record
-    public boolean Update_Income( long  IncomeID, long IncomeCID, String IncomeDate, long IncomeValue, String  ICDesct)
+    public boolean Update_Income( long  IncomeID, long IncomeCID, String IncomeDate, long IncomeValue, String  ICDesct, String IncomeName)
     {
         ContentValues Values = new ContentValues();
         Values.put(KEY_tbIncome_IncomeCID, IncomeCID);
         Values.put(KEY_IncomeDate, IncomeDate);
         Values.put(KEY_IncomeValue, IncomeValue);
         Values.put(KEY_IncomeDescriptions, ICDesct);
+        Values.put(KEY_IncomeName, IncomeName);
         return db.update(KEY_TBNAME_tbl_Income, Values, KEY_IncomeID + "=" + IncomeID,null )>0;
     }
 
@@ -242,7 +256,25 @@ public class SpendingDBAdapter {
         return db.delete(KEY_TBNAME_tbl_Expense, KEY_ExpenseID + "=" + ExpenseID,null )>0;
     }
 
-
+    
+    public void copyDatabase() throws IOException{
+    	//open local database as the input stream
+    	InputStream myInputStream = context.getAssets().open(DATABASE_NAME);
+    	//path to the newly created empty database
+    	String outFileName = DATABASE_PATH + DATABASE_NAME;
+    	//open the empty database as the output stream
+    	OutputStream myOutputStream = new FileOutputStream(outFileName);
+    	//transfer bytes from input file to output file
+    	byte[] buffer = new byte[1024];
+    	int length;
+    	while((length=myInputStream.read(buffer))>0){
+    		myOutputStream.write(buffer,0,length);
+    	}
+    	//close the stream
+    	myOutputStream.flush();
+    	myOutputStream.close();
+    	myInputStream.close();
+    }
 
 
 
@@ -265,7 +297,8 @@ public class SpendingDBAdapter {
                 + KEY_tbIncome_IncomeCID + " INTEGER,"
                 + KEY_IncomeDate + " DATETIME,"
                 + KEY_IncomeValue + " INTEGER,"
-                + KEY_IncomeDescriptions + " TEXT"
+                + KEY_IncomeDescriptions + " TEXT,"
+                + KEY_IncomeName + " TEXT"
                 + ")";
 
         // tbl_Expense table create statement
@@ -275,7 +308,8 @@ public class SpendingDBAdapter {
                 + KEY_tbExpense_ExpenseCID + " INTEGER,"
                 + KEY_ExpenseDate + " DATETIME,"
                 + KEY_ExpenseValue + " INTEGER,"
-                + KEY_ExpenseDescriptions + " TEXT"
+                + KEY_ExpenseDescriptions + " TEXT,"
+                + KEY_ExpenseName + " TEXT"
                 + ")";
 
         // tbl_IncomeCategories table create statement
@@ -300,15 +334,37 @@ public class SpendingDBAdapter {
             Date date = new Date();
             return dateFormat.format(date);
         }
-
+        @SuppressWarnings("null")
+    	public boolean checkDatabase(){
+        	
+        	SQLiteDatabase checkDB =null;
+        	try{
+        		String myDBPath= DATABASE_PATH + DATABASE_NAME;
+        		checkDB = SQLiteDatabase.openDatabase(myDBPath, null, SQLiteDatabase.OPEN_READONLY);
+        	}catch(SQLiteException e){
+        		
+        	}
+        	if(checkDB==null){
+        		checkDB.close();
+        	}
+        	return checkDB !=null ? true:false;
+        }
         @Override
         public void onCreate(SQLiteDatabase db)
         {
+        	/*boolean dbExist = checkDatabase();
+        	if(dbExist){
+        		
+        	}
+        	else{
+        		
+        	}*/
             // creating required tables
             db.execSQL(CREATE_TABLE_tbl_Income);
             db.execSQL(CREATE_TABLE_tbl_Expense);
             db.execSQL(CREATE_TABLE_tbl_IncomeCategories);
             db.execSQL(CREATE_TABLE_tbl_ExpenseCategories);
+            
         }
 
         @Override
@@ -325,6 +381,8 @@ public class SpendingDBAdapter {
             // create new tables
             onCreate(db);
         }
+       
     }
+
 
 }

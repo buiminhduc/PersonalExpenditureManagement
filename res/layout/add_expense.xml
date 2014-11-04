@@ -97,10 +97,18 @@
             	android:inputType="text" 
 			    />
         </LinearLayout>
-        <Button
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+	   		android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical" >
+			<Button
             android:id="@+id/btnSaveExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save" 
             />
+        </LinearLayout>
+        
 </LinearLayout>
