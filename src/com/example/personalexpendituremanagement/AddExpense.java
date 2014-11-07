@@ -6,10 +6,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -88,15 +91,37 @@ public class AddExpense extends FragmentActivity implements OnItemSelectedListen
 		updateDate();
 	}
 	public void saveExpense(){
-		final int expenseAmount = Integer.parseInt(txtExpenseAmount.getText().toString());
-		final String expenseName=txtExpenseName.getText().toString();
-		final String expenseNote=txtNoteExpense.getText().toString();
-		final String expenseDate=txtExpenseDate.getText().toString();
-		final int expenseCategoryId = ((SpinnerObject)spExpenseCategory.getSelectedItem()).getId();
-		DBAdapter.open();
-		DBAdapter.insert_Expense(expenseCategoryId, expenseDate, expenseAmount, expenseNote, expenseName);
-		DBAdapter.close();
-		this.finish();
+		if(txtExpenseAmount.getText().toString().trim().length() != 0){
+			final int expenseAmount = Integer.parseInt(txtExpenseAmount.getText().toString());
+			final String expenseName=txtExpenseName.getText().toString().trim();
+			final String expenseNote=txtNoteExpense.getText().toString().trim();
+			final String expenseDate=txtExpenseDate.getText().toString().trim();
+			final int expenseCategoryId = ((SpinnerObject)spExpenseCategory.getSelectedItem()).getId();
+			
+			DBAdapter.open();
+			DBAdapter.insert_Expense(expenseCategoryId, expenseDate, expenseAmount, expenseNote, expenseName);
+			DBAdapter.close();
+			this.finish();
+		}else{
+			new AlertDialog.Builder(this)
+		    .setTitle(R.string.error)
+		    .setMessage(R.string.invalid_amount)
+		    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // continue with save
+		        }
+		     })
+		    /*.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // do nothing
+		        }
+		     }
+		    )*/
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+		}
+		
+		
 	}
 	DatePickerDialog.OnDateSetListener dateDialog = new DatePickerDialog.OnDateSetListener() {
 		
@@ -174,4 +199,5 @@ public class AddExpense extends FragmentActivity implements OnItemSelectedListen
         // TODO Auto-generated method stub
  
     }
+    
 }

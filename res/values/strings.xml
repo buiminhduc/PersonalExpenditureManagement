@@ -25,4 +25,6 @@
 	<string name="pick_income_date_desciption">Pick Income Date</string>
 	<string name="save">Save</string>
 	<string name="currency">đ</string>
+	<string name="error">Error</string>
+	<string name="invalid_amount">Invalid amount</string>
 </resources>

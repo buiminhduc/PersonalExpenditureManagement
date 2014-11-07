@@ -8,7 +8,9 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -87,15 +89,36 @@ public class AddIncome extends FragmentActivity implements OnItemSelectedListene
 		updateDate();
 	}
 	public void saveIncome(){
-		final int incomeAmount = Integer.parseInt(txtIncomeAmount.getText().toString());
-		final String incomeName = txtIncomeName.getText().toString();
-		final String incomeNote = txtNoteIncome.getText().toString();
-		final String incomeDate = txtIncomeDate.getText().toString();
-		final int incomeCategoryId = ((SpinnerObject)spIncomeCategory.getSelectedItem()).getId();
-		DBAdapter.open();
-		DBAdapter.insert_Income(incomeCategoryId, incomeDate, incomeAmount, incomeNote, incomeName);
-		DBAdapter.close();
-		this.finish();
+		if(txtIncomeAmount.getText().toString().trim().length()!=0){
+			final int incomeAmount = Integer.parseInt(txtIncomeAmount.getText().toString());
+			final String incomeName = txtIncomeName.getText().toString();
+			final String incomeNote = txtNoteIncome.getText().toString();
+			final String incomeDate = txtIncomeDate.getText().toString();
+			final int incomeCategoryId = ((SpinnerObject)spIncomeCategory.getSelectedItem()).getId();
+			DBAdapter.open();
+			DBAdapter.insert_Income(incomeCategoryId, incomeDate, incomeAmount, incomeNote, incomeName);
+			DBAdapter.close();
+			this.finish();
+		}else{
+			//Toast.makeText(this, "Invalid amount",Toast.LENGTH_SHORT).show();
+			new AlertDialog.Builder(this)
+		    .setTitle(R.string.error)
+		    .setMessage(R.string.invalid_amount)
+		    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // continue with save
+		        }
+		     })
+		    /*.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // do nothing
+		        }
+		     }
+		    )*/
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+		}
+		
 	}
 	
 	//get date from date picker
@@ -177,5 +200,4 @@ public class AddIncome extends FragmentActivity implements OnItemSelectedListene
         // TODO Auto-generated method stub
  
     }
-	
 }

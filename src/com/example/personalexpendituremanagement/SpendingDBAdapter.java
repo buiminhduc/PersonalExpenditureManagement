@@ -130,6 +130,25 @@ public class SpendingDBAdapter  {
                 null,
                 null);
     }
+    //get all income with date range
+    public Cursor getAllIncomeWithDateRange(String startDate,String endDate)
+    {
+    	String selection = KEY_IncomeDate +">="+ "'"+startDate+"'" +" and "+KEY_IncomeDate +"<="+ "'"+endDate+"'";
+        return db.query(KEY_TBNAME_tbl_Income, new String[] {
+                        KEY_IncomeID,
+                        KEY_tbIncome_IncomeCID,
+                        KEY_IncomeDate,
+                        KEY_IncomeValue,
+                        KEY_IncomeDescriptions,
+                        KEY_IncomeName
+                },
+                selection,
+                null,
+                null,
+                null,
+                null);
+        
+    }
 
     // get All Expense records
     public Cursor getAllExpense()
@@ -143,6 +162,24 @@ public class SpendingDBAdapter  {
                         KEY_ExpenseName
                 },
                 null,
+                null,
+                null,
+                null,
+                null);
+    }
+    //get all expense with date range
+    public Cursor getAllExpenseWithDateRange(String startDate,String endDate)
+    {
+    	String selection = KEY_ExpenseDate + ">="+ "'"+startDate+"'" +" and " + KEY_ExpenseDate + "<="+ "'"+endDate+"'";
+        return db.query(KEY_TBNAME_tbl_Expense, new String[] {
+                        KEY_ExpenseID,
+                        KEY_tbExpense_ExpenseCID,
+                        KEY_ExpenseDate,
+                        KEY_ExpenseValue,
+                        KEY_ExpenseDescriptions,
+                        KEY_ExpenseName
+                },
+                selection,
                 null,
                 null,
                 null,
@@ -256,7 +293,8 @@ public class SpendingDBAdapter  {
         return db.delete(KEY_TBNAME_tbl_Expense, KEY_ExpenseID + "=" + ExpenseID,null )>0;
     }
 
-    
+    //in case we would like to use a prepared database
+    //copy database from assets folder to database folder
     public void copyDatabase() throws IOException{
     	//open local database as the input stream
     	InputStream myInputStream = context.getAssets().open(DATABASE_NAME);

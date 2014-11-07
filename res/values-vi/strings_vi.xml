@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quản lý chi tiêu cá nhân</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="pie_chart">Sample Pie Chart</string>
+    <string name="account">Tài khoản</string>
+    <string name="income">Thu: </string>
+    <string name="expense">Chi: </string>
+    <string name="balance">Số dư: </string>
+    <string name="add_income">Thêm khoản thu</string>
+    <string name="add_expense">Thêm khoản chi</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="today">Hôm nay</string>
+    <string name="week">Tuần</string>
+    <string name="month">Tháng</string>
+    <string name="quarter">Qúy</string>
+    <string name="year">Năm</string>
+	<string name="amount">Số tiền: </string>
+	<string name="name">Tên: </string>
+	<string name="category">Danh mục: </string>
+	<string name="date">Ngày: </string>
+	<string name="note">Ghi chú: </string>
+	<string name="pick_income_date_desciption">Pick Income Date</string>
+	<string name="save">Lưu</string>
+	<string name="currency">đ</string>
+	<string name="error">Lỗi</string>
+	<string name="invalid_amount">Số tiền không hợp lệ</string>
+</resources>
