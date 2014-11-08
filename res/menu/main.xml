@@ -3,8 +3,24 @@
     tools:context="com.example.personalexpendituremanagement.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/account"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:showAsAction="ifRoom"
+        android:title="@string/account"
+         android:icon="@drawable/ic_action_accounts"
+        />
+    <item
+        android:id="@+id/report"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/report"
+        android:icon="@drawable/ic_action_view_as_list"
+        />
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_action_settings"
+        />
 </menu>

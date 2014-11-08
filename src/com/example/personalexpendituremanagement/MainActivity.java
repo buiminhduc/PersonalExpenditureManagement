@@ -174,12 +174,13 @@ public class MainActivity extends Activity  {
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
-		//return true;
-		menu.add("Account")
+		//Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
+		/*menu.add("Account")
         .setIcon(R.drawable.ic_action_accounts)
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT)
+        ;
 
 		menu.add("Report")
         .setIcon(R.drawable.ic_action_view_as_list)
@@ -189,7 +190,7 @@ public class MainActivity extends Activity  {
         .setIcon(R.drawable.ic_action_settings)
         .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-		return super.onCreateOptionsMenu(menu);
+		return super.onCreateOptionsMenu(menu);*/
 	}
 
 	@Override
@@ -198,7 +199,19 @@ public class MainActivity extends Activity  {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.account) {
+			Intent iAccount = new Intent(getApplicationContext(),MainActivity.class);
+			startActivity(iAccount);
+			return true;
+		}
+		if(id==R.id.report){
+			Intent iReport = new Intent(getApplicationContext(),D_Report.class);
+			startActivity(iReport);
+			return true;
+		}
+		if(id==R.id.settings){
+			Intent iSettings = new Intent(getApplicationContext(),D_Settings.class);
+			startActivity(iSettings);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

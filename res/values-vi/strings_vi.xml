@@ -26,4 +26,6 @@
 	<string name="currency">đ</string>
 	<string name="error">Lỗi</string>
 	<string name="invalid_amount">Số tiền không hợp lệ</string>
+	<string name="report">Báo cáo</string>
+	<string name="settings">Cài đặt</string>
 </resources>

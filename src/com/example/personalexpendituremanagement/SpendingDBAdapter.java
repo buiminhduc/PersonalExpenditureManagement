@@ -26,34 +26,34 @@ public class SpendingDBAdapter  {
     private static final String DATABASE_NAME = "SpendingDB";
 
     //Table Name
-    private static final String KEY_TBNAME_tbl_Income = "tbl_Income";
-    private static final String KEY_TBNAME_tbl_Expense = "tbl_Expense";
-    private static final String KEY_TBNAME_tbl_IncomeCategories = "tbl_IncomeCategories";
-    private static final String KEY_TBNAME_tbl_ExpenseCategories = "tbl_ExpenseCategories";
+    public static final String KEY_TBNAME_tbl_Income = "tbl_Income";
+    public static final String KEY_TBNAME_tbl_Expense = "tbl_Expense";
+    public static final String KEY_TBNAME_tbl_IncomeCategories = "tbl_IncomeCategories";
+    public static final String KEY_TBNAME_tbl_ExpenseCategories = "tbl_ExpenseCategories";
 
     //Columns Name - tbl_Income
-    private static final String KEY_IncomeID = "IncomeID";
-    private static final String KEY_tbIncome_IncomeCID = "IncomeCID";
-    private static final String KEY_IncomeDate = "IncomeDate";
-    private static final String KEY_IncomeValue = "IncomeValue";
-    private static final String KEY_IncomeDescriptions = "IncomeDescriptions";
-    private static final String KEY_IncomeName = "IncomeName";
+    public static final String KEY_IncomeID = "IncomeID";
+    public static final String KEY_tbIncome_IncomeCID = "IncomeCID";
+    public static final String KEY_IncomeDate = "IncomeDate";
+    public static final String KEY_IncomeValue = "IncomeValue";
+    public static final String KEY_IncomeDescriptions = "IncomeDescriptions";
+    public static final String KEY_IncomeName = "IncomeName";
 
     //Columns Name - tbl_Expense
-    private static final String KEY_ExpenseID = "ExpenseID";
-    private static final String KEY_tbExpense_ExpenseCID = "ExpenseCID";
-    private static final String KEY_ExpenseDate = "ExpenseDate";
-    private static final String KEY_ExpenseValue = "ExpenseValue";
-    private static final String KEY_ExpenseDescriptions = "ExpenseDescriptions";
-    private static final String KEY_ExpenseName = "ExpenseName";
+    public static final String KEY_ExpenseID = "ExpenseID";
+    public static final String KEY_tbExpense_ExpenseCID = "ExpenseCID";
+    public static final String KEY_ExpenseDate = "ExpenseDate";
+    public static final String KEY_ExpenseValue = "ExpenseValue";
+    public static final String KEY_ExpenseDescriptions = "ExpenseDescriptions";
+    public static final String KEY_ExpenseName = "ExpenseName";
 
     //Columns Name - tbl_IncomeCategories
-    private static final String KEY_IncomeCID = "IncomeCID";
-    private static final String KEY_IncomeCName = "IncomeCName";
+    public static final String KEY_IncomeCID = "_id";
+    public static final String KEY_IncomeCName = "IncomeCName";
 
     //Columns Name - tbl_ExpenseCategories
-    private static final String KEY_ExpenseCID = "ExpenseCID";
-    private static final String KEY_ExpenseCName = "ExpenseCName";
+    public static final String KEY_ExpenseCID = "_id";
+    public static final String KEY_ExpenseCName = "ExpenseCName";
 
     private static final String TAG = "_DBAdapter";
 
@@ -422,5 +422,80 @@ public class SpendingDBAdapter  {
        
     }
 
+  //Dinh's Area ------------------------------------------------------------------------------------
 
+    // Process for tbl IncomeCategories
+
+    //Getting Cursor to read Income Categories data from table
+    public Cursor readInCa() {
+        String[] allColumns = new String[] { KEY_IncomeCID,
+                KEY_IncomeCName };
+        Cursor c = db.query(KEY_TBNAME_tbl_IncomeCategories, allColumns, null,
+                null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    //Inserting an Income record Data into table
+    public void insertInCa(String incaname) {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_IncomeCName, incaname);
+        db.insert(KEY_TBNAME_tbl_IncomeCategories, null, cv);
+    }
+
+    //Updating Income Category record into table by id
+    public int updateInCa(long InCaID, String InCaName) {
+        ContentValues cvUpdate = new ContentValues();
+        cvUpdate.put(KEY_IncomeCName, InCaName);
+        int i = db.update(KEY_TBNAME_tbl_IncomeCategories, cvUpdate,
+                KEY_IncomeCID + " = " + InCaID, null);
+        return i;
+    }
+
+    // Deleting an Income Category record data from table by id
+    public void deleteInCa(long IncomeCID) {
+        db.delete(KEY_TBNAME_tbl_IncomeCategories, KEY_IncomeCID + "="
+                + IncomeCID, null);
+    }
+
+
+
+    // Process for tbl ExpenCategories
+    //Getting Cursor to read Income Categories data from table
+    public Cursor readExpenCa() {
+        String[] allColumns = new String[] { KEY_ExpenseCID,
+                KEY_ExpenseCName };
+        Cursor c = db.query(KEY_TBNAME_tbl_ExpenseCategories, allColumns, null,
+                null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    //Inserting an expenCa record Data into table
+    public void insertExpenCa(String excaname) {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_ExpenseCName, excaname);
+        db.insert(KEY_TBNAME_tbl_ExpenseCategories, null, cv);
+    }
+
+    //Updating record data into table by id
+    public int updateExpen(long ExCaID, String ExCaName) {
+        ContentValues cvUpdate = new ContentValues();
+        cvUpdate.put(KEY_ExpenseCName, ExCaName);
+        int i = db.update(KEY_TBNAME_tbl_ExpenseCategories, cvUpdate,
+                KEY_ExpenseCID + " = " + ExCaID, null);
+        return i;
+    }
+
+    // Deleting a Category record data from table by id
+    public void deleteExpen(long ExpenseCID) {
+        db.delete(KEY_TBNAME_tbl_ExpenseCategories, KEY_ExpenseCID + "="
+                + ExpenseCID, null);
+    }
+    
+    //End Dinh'srea----------------------------------- 
 }

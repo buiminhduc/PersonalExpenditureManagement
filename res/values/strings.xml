@@ -27,4 +27,6 @@
 	<string name="currency">đ</string>
 	<string name="error">Error</string>
 	<string name="invalid_amount">Invalid amount</string>
+	<string name="report">Report</string>
+	<string name="settings">Settings</string>
 </resources>
